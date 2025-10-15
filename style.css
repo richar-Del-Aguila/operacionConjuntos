@@ -1,0 +1,137 @@
+body {
+  background-color: #f3f8ff;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  gap: 25px; 
+  padding-top: 40px;
+}
+
+
+#creacionConjuntos,
+#asignarElementos,
+#realizarOperaciones {
+  background-color: #ffffff;
+  border: 2px solid #c6d8ff;
+  border-radius: 15px;
+  padding: 20px 30px;
+  width: 500px;
+  height: 600px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  font-weight: 600;
+  color: #2c4a7c;
+  display: block;
+  margin-bottom: 6px;
+}
+
+input {
+  padding: 6px 8px;
+  border: 1px solid #c6d8ff;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  outline: none;
+  transition: 0.2s;
+}
+
+input:focus {
+  border-color: #5a8dee;
+  box-shadow: 0 0 5px rgba(90, 141, 238, 0.4);
+}
+
+button {
+  background-color: #5a8dee;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  margin: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: #4677d3;
+}
+
+.mensaje,
+[id^="msg"] {
+  background-color: #e8f1ff;
+  border: 1px solid #c6d8ff;
+  border-radius: 8px;
+  padding: 8px;
+  color: #2c4a7c;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+pre {
+  color: #344767;
+  background-color: #f5f8ff;
+  border-radius: 8px;
+  padding: 6px;
+  font-size: 14px;
+  border: 1px solid #d9e3ff;
+}
+
+.operaciones {
+  width: 100%;
+  border: 2px solid #c6d8ff;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  background-color: #f9fbff;
+  border-radius: 10px;
+}
+
+.operaciones button {
+  padding: 8px 14px;
+  border: 1px solid #c6d8ff;
+  border-radius: 6px;
+  background-color: #e8f1ff;
+  color: #2c4a7c;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.operaciones button:hover {
+  background-color: #cfe0ff;
+  transform: scale(1.05);
+}
+
+#realizarOperaciones h2 {
+  color: #1e355e;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+button:disabled {
+  background-color: #d1d5db; 
+  color: #6b7280;           
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+button:disabled:hover {
+  background-color: #d1d5db;
+  transform: none;
+}
+
+#resultado {
+  background-color: #e8f1ff;
+  border: 1px solid #c6d8ff;
+  border-radius: 8px;
+  padding: 8px;
+  color: #2c4a7c;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  min-height: 25px;
+}
