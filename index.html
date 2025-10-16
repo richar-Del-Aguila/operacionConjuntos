@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -113,3 +114,117 @@ Elementos en el conjunto universo:
 
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operaciones con conjuntos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <section id="creacionConjuntos">
+    <label for="elemento">Ingresa los elementos del conjunto universo</label>
+    <input id="elemento" type="text">
+    <button onclick="agregar()" id="btnAgregar">Agregar</button>
+    <button onclick="eliminarElemento()">Eliminar</button>
+
+    <div class="mensaje" id="msgElemento">
+      No ha agregado ningún elemento
+    </div>
+
+    <pre>
+Elementos en el conjunto universo:
+<span id="elementosAgregados">Conjunto universo vacío</span>
+    </pre>
+
+    <br>
+
+    <label for="nombreConjunto">Ingresa el nombre del conjunto</label>
+    <input type="text" id="nombreConjunto">
+    <button id="btnNombres" onclick="crearConjuntos()" disabled>Agregar</button>
+    <button onclick="eliminarConjuntos()">Eliminar</button>
+
+    <div class="mensaje" id="msgNombre">
+      Crea al menos 2 conjuntos
+    </div>
+
+    <div class="mensaje" id="conjuntosCreados">
+      No has creado ningún conjunto
+    </div>
+
+    <button id="siguienteElementos" onclick="ingresarElementosConjuntos()" disabled>
+      Siguiente
+    </button>
+  </section>
+
+  <br>
+
+  <section id="asignarElementos" style="display: none;">
+    <p>
+      Elementos válidos:
+      <span id="elementosDisponibles"></span>
+    </p>
+
+    <label for="">
+      Ingrese el elemento para agregar en:
+      <p id="conjunto"></p>
+    </label>
+
+    <input type="text" id="elementoAgregar">
+    <p id="msgAgregarElemento"></p>
+
+    <button id="btnElementoAgregar">Agregar</button>
+    <button id="btnSiguienteConjunto">Siguiente</button>
+
+    <br>
+    <p id="mostrarConjuntos"></p>
+    <br>
+
+    <label for="">Ir a operaciones</label>
+    <button id="operaciones">Operaciones</button>
+  </section>
+
+  <br>
+
+  <section id="realizarOperaciones" style="display: none;">
+    <p>Selecciona una operacion primero</p>
+    <div class="operaciones">
+      <button id="btnUnion">Unión</button>
+      <button id="btnDiferencia">Diferencia</button>
+      <button id="btnDiferenciaS">Diferencia simétrica</button>
+      <button id="btnInterseccion">Intersección</button>
+      <button id="btnConjuntoComplemento">Conjunto Complemento</button>
+    </div>
+
+    <h2>
+      Operación:
+      <span id="operacion"></span>
+    </h2>
+
+    <p>Seleccione los conjuntos a operar:</p>
+    <br>
+    <p id="mostrarTodosConjuntos"></p>
+
+    <label for="">
+      Ingrese el nombre del conjunto a operar (mínimo y máximo 2):
+    </label>
+
+    <input type="text" id="conjuntosOperar">
+    <button id="btnAgregarConjunto" disabled>Agregar</button>
+
+    <p id="conjuntosSeleccionados"></p>
+
+    <button id="btnOperar">Operar</button>
+    <p id="resultado"></p>
+
+  </section>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
+>>>>>>> b04f7765adaf445e39c4304a601b2351a447ba1c
