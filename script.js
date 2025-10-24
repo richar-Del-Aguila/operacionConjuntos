@@ -2,8 +2,8 @@ let conjuntoUniverso = [];
 let conjuntos = [];
 let nombresConjuntos = [];
 let contador = 0;
-let limiteElementos = 5; //limite de elementos que se quieren en el conjunto
-let limiteConjuntos = 3;
+let limiteElementos = 10; //limite de elementos que se quieren en el conjunto
+let limiteConjuntos = 10;
 let conjuntosOperar = [];
 
 //funcion para comprobar si un elemento se encuentra en una lista
@@ -51,16 +51,17 @@ function agregar() {
     };
   };
   //Si no se ha alcanzado el limite de elementos habilita el boton, sino lo desabilita
-  if (conjuntoUniverso.length < limiteElementos){
+  if (conjuntoUniverso.length < limiteElementos) {
     document.getElementById("btnAgregar").disabled = false;
   } else {
     document.getElementById("btnAgregar").disabled = true;
   };
+  document.getElementById("elemento").focus(); //regresar foco al textbox
 }
 
 //Esta función creara los conjuntos dependiendo de la cantidad de nombres que ingrese
 function crearConjuntos() {
-  let nombre = document.getElementById("nombreConjunto").value;
+  let nombre = (document.getElementById("nombreConjunto").value).toUpperCase();
   let nombres = nombresConjuntos.map(nombre => nombre.toUpperCase());
 
   if (nombre !== "" && !comprobar(nombre.toUpperCase(), nombres) && nombresConjuntos.length < limiteConjuntos) {
@@ -83,12 +84,13 @@ function crearConjuntos() {
     document.getElementById("nombreConjunto").value = "";
   }
 
-  if (conjuntos.length >= 2){
-      document.getElementById("siguienteElementos").disabled = false;
+  if (conjuntos.length >= 2) {
+    document.getElementById("siguienteElementos").disabled = false;
   }
 
   document.getElementById("nombreConjunto").value = "";
   document.getElementById("conjuntosCreados").innerText = "Conjuntos creados:" + nombresConjuntos;
+  document.getElementById("nombreConjunto").focus();
 }
 
 //funcion para eliminar elementos del conjunto universo
@@ -99,10 +101,10 @@ function eliminarElemento() {
   document.getElementById("elemento").value = "";
 
   if (comprobar(elemento, conjuntoUniverso)) {
-    document.getElementById("msgElemento").innerText = "Elemento eliminado:"  + "{" + elemento + "}";
+    document.getElementById("msgElemento").innerText = "Elemento eliminado:" + "{" + elemento + "}";
     conjuntoUniverso = eliminar(elemento, conjuntoUniverso);
   } else {
-    document.getElementById("msgElemento").innerText = "Elemento no agregado:"  + "{" + elemento + "}";
+    document.getElementById("msgElemento").innerText = "Elemento no agregado:" + "{" + elemento + "}";
   }
   if (conjuntoUniverso.length > 0 && conjuntoUniverso.length <= limiteElementos) {
     document.getElementById("btnNombres").disabled = false;
@@ -112,6 +114,7 @@ function eliminarElemento() {
     document.getElementById("elementosAgregados").innerText = "Conjunto universo vacio";
     document.getElementById("btnNombres").disabled = true;
   }
+  document.getElementById("elemento").focus();
 }
 //Funcion que eliminara conjuntos y actualizara el estado
 function eliminarConjuntos() {
@@ -121,17 +124,18 @@ function eliminarConjuntos() {
   document.getElementById("nombreConjunto").value = "";
 
   if (comprobar(conjunto, nombresConjuntos)) {
-    document.getElementById("msgNombre").innerText = "conjunto eliminado:"  + "{" + conjunto + "}";
+    document.getElementById("msgNombre").innerText = "conjunto eliminado:" + "{" + conjunto + "}";
     conjuntos.splice(index, 1);
     nombresConjuntos.splice(index, 1);
     document.getElementById("btnNombres").disabled = true;
   } else {
-    document.getElementById("msgNombre").innerText = "conjunto no creado:"  + "{" + conjunto + "}";
+    document.getElementById("msgNombre").innerText = "conjunto no creado:" + "{" + conjunto + "}";
   }
   document.getElementById("conjuntosCreados").innerText = "Conjuntos creados:" + nombresConjuntos;
-  if(conjuntos.length < 2){
+  if (conjuntos.length < 2) {
     document.getElementById("siguienteElementos").disabled = true;
   };
+  document.getElementById("nombreConjunto").focus();
 }
 
 //Avanzara a la siguiente seccion de la edicion de conjuntos
@@ -153,18 +157,18 @@ btn1.addEventListener("click", function () {
   let elementoAgregar = document.getElementById("elementoAgregar").value;
   let texto = "";
   //Comprubea si esta en el conjunto universo, tambien si ya esta en el conjunto y si esta en el rango de elementos permitidos
- if (comprobar(elementoAgregar, conjuntoUniverso) && !conjuntos[contador].includes(elementoAgregar) && conjuntos[contador].length <= limiteElementos) {
-   conjuntos[contador].push(elementoAgregar);
-   document.getElementById("msgAgregarElemento").innerText = "Elemento {" + elementoAgregar + "}, agregado a conjunto: " + nombresConjuntos[contador];
-  }else {
-    switch(true){
+  if (comprobar(elementoAgregar, conjuntoUniverso) && !conjuntos[contador].includes(elementoAgregar) && conjuntos[contador].length <= limiteElementos) {
+    conjuntos[contador].push(elementoAgregar);
+    document.getElementById("msgAgregarElemento").innerText = "Elemento {" + elementoAgregar + "}, agregado a conjunto: " + nombresConjuntos[contador];
+  } else {
+    switch (true) {
       case conjuntoUniverso.includes(elementoAgregar) == false:
-        document.getElementById("msgAgregarElemento").innerText = "Elemento {"+ elementoAgregar +"} no se ha encontrado en conjunto universo y no se agrego";
-      break;
+        document.getElementById("msgAgregarElemento").innerText = "Elemento {" + elementoAgregar + "} no se ha encontrado en conjunto universo y no se agrego";
+        break;
 
       case comprobar(elementoAgregar, conjuntos[contador]) == true:
-        document.getElementById("msgAgregarElemento").innerText = "Elemento {"+ elementoAgregar +"} ya se ha agregado al conjunto";
-      break;
+        document.getElementById("msgAgregarElemento").innerText = "Elemento {" + elementoAgregar + "} ya se ha agregado al conjunto";
+        break;
     }
   }
 
@@ -180,18 +184,19 @@ btn1.addEventListener("click", function () {
     texto += i + 1 + ": " + nombresConjuntos[i] + ":{" + conjuntos[i] + "}<br>";
   }
   document.getElementById("mostrarConjuntos").innerHTML = texto;
+  document.getElementById("elementoAgregar").focus();
 });
 
 //eliminara elementos a los conjuntos
-btn4.addEventListener("click", function(){
+btn4.addEventListener("click", function () {
   let elemento = elementoAgregar = document.getElementById("elementoAgregar").value;
   let texto = "";
 
-  if (comprobar(elemento, conjuntos[contador]) == true){
+  if (comprobar(elemento, conjuntos[contador]) == true) {
     let index = conjuntos[contador].indexOf(elemento);
     conjuntos[contador].splice(index, 1);
     document.getElementById("msgAgregarElemento").innerText = "Elemento {" + elemento + "}, eliminado a conjunto: " + nombresConjuntos[contador];
-  } else{
+  } else {
     document.getElementById("msgAgregarElemento").innerText = "Elemento {" + elemento + "}, no encontrado en: " + nombresConjuntos[contador];
   }
 
@@ -207,6 +212,7 @@ btn4.addEventListener("click", function(){
     texto += i + 1 + ": " + nombresConjuntos[i] + ":{" + conjuntos[i] + "}<br>";
   }
   document.getElementById("mostrarConjuntos").innerHTML = texto;
+  document.getElementById("elementoAgregar").focus();
 });
 //avanzara al sguiente conjunto
 btn2.addEventListener("click", function () {
@@ -222,29 +228,31 @@ btn2.addEventListener("click", function () {
       document.getElementById("btnSiguienteConjunto").disabled = true;
     }
   }
+  document.getElementById("elementoAgregar").focus();
 });
 
 //retrocedera al anterior conjunto para ingresar elementos
-btn3.addEventListener("click", function(){
+btn3.addEventListener("click", function () {
   document.getElementById("btnSiguienteConjunto").disabled = false;
   contador -= 1;
   if (conjuntos[contador].length === 0) {
     document.getElementById("conjunto").innerText = nombresConjuntos[contador] + ":{Ø}";
   } else {
-      document.getElementById("conjunto").innerText = nombresConjuntos[contador] + ":{" + conjuntos[contador] + "}";
+    document.getElementById("conjunto").innerText = nombresConjuntos[contador] + ":{" + conjuntos[contador] + "}";
   };
 
-  if (contador == 0){
+  if (contador == 0) {
     document.getElementById("btnAnteriorConjunto").disabled = true;
   }
+  document.getElementById("elementoAgregar").focus();
 });
 
 const btnOperaciones = document.getElementById("operaciones");
 
 btnOperaciones.addEventListener("click", function () {
   let texto = "";
-  for (let j = 0; j < nombresConjuntos.length; j++){
-    if (conjuntos[j].length === 0){
+  for (let j = 0; j < nombresConjuntos.length; j++) {
+    if (conjuntos[j].length === 0) {
       conjuntos[j].push("Ø");
     }
   }
@@ -256,17 +264,20 @@ btnOperaciones.addEventListener("click", function () {
 });
 //limpiara los campos para que se puedad operar otros conjuntos
 const btnLimpiarConjuntos = document.getElementById("btnLimpiarConjuntos");
-btnLimpiarConjuntos.addEventListener("click", function(){
+
+btnLimpiarConjuntos.addEventListener("click", function () {
   conjuntosOperar = [];
   document.getElementById("conjuntosSeleccionados").innerText = "";
   actualizarBtn(conjuntosOperar, "btnOperar");
   document.getElementById("resultado").innerText = "Resultado de las operaciones";
+  document.getElementById("conjuntosOperar").focus();
+  document.getElementById("operacion").innerText = "Ninguna operacion seleccionada"
 });
 
 const btnAgregarConjunto = document.getElementById("btnAgregarConjunto");
 btnAgregarConjunto.addEventListener("click", function () {
   let nombre = document.getElementById("conjuntosOperar").value;
-
+  nombre = nombre.toUpperCase();
   if (conjuntosOperar.length >= 2) {
     document.getElementById("conjuntosSeleccionados").innerText = "Solo se pueden seleccionar dos conjuntos.";
     document.getElementById("conjuntosOperar").value = "";
@@ -288,6 +299,7 @@ btnAgregarConjunto.addEventListener("click", function () {
     document.getElementById("conjuntosSeleccionados").innerText = "⚠️ Conjunto no existe o ya fue seleccionado.";
     document.getElementById("conjuntosOperar").value = "";
   }
+  document.getElementById("conjuntosOperar").focus();
 });
 
 const btnUnion = document.getElementById("btnUnion");
@@ -295,17 +307,29 @@ const btnDiferencia = document.getElementById("btnDiferencia");
 const btnDiferenciaS = document.getElementById("btnDiferenciaS");
 const btnInterseccion = document.getElementById("btnInterseccion");
 const btnConjuntoComplemento = document.getElementById("btnConjuntoComplemento");
+const btnProductoCartesiano = document.getElementById("btnProductoCartesiano");
 
 const spanOperacion = document.getElementById("operacion");
 let operacionSelec = "";
+
+btnProductoCartesiano.addEventListener("click", function () {
+  spanOperacion.innerText = "";
+  operacionSelec = "ProductoCartesiano";
+  spanOperacion.innerText = "Producto cartesiano (*)"
+  if (conjuntosOperar.length > 0) {
+    document.getElementById("btnAgregarConjunto").disabled = true;
+  } else {
+    document.getElementById("btnAgregarConjunto").disabled = false;
+  }
+});
 
 btnUnion.addEventListener("click", function () {
   spanOperacion.innerText = "";
   operacionSelec = "Union";
   spanOperacion.innerText = operacionSelec + "(∪)";
-  if(conjuntosOperar.length > 0){
+  if (conjuntosOperar.length > 0) {
     document.getElementById("btnAgregarConjunto").disabled = true;
-  } else{
+  } else {
     document.getElementById("btnAgregarConjunto").disabled = false;
   }
 });
@@ -315,9 +339,9 @@ btnDiferencia.addEventListener("click", function () {
   operacionSelec = "Diferencia";
   spanOperacion.innerText = operacionSelec + "(-)";
 
-  if(conjuntosOperar.length > 0){
+  if (conjuntosOperar.length > 0) {
     document.getElementById("btnAgregarConjunto").disabled = true;
-  } else{
+  } else {
     document.getElementById("btnAgregarConjunto").disabled = false;
   }
 });
@@ -326,10 +350,10 @@ btnDiferenciaS.addEventListener("click", function () {
   spanOperacion.innerText = "";
   operacionSelec = "DiferenciaSimetrica";
   spanOperacion.innerText = operacionSelec + "(Δ)";
-  
-  if(conjuntosOperar.length > 0){
+
+  if (conjuntosOperar.length > 0) {
     document.getElementById("btnAgregarConjunto").disabled = true;
-  } else{
+  } else {
     document.getElementById("btnAgregarConjunto").disabled = false;
   }
 });
@@ -339,9 +363,9 @@ btnInterseccion.addEventListener("click", function () {
   operacionSelec = "Intersección";
   spanOperacion.innerText = operacionSelec + "(∩)";
 
-  if(conjuntosOperar.length > 0){
+  if (conjuntosOperar.length > 0) {
     document.getElementById("btnAgregarConjunto").disabled = true;
-  } else{
+  } else {
     document.getElementById("btnAgregarConjunto").disabled = false;
   }
 });
@@ -351,15 +375,15 @@ btnConjuntoComplemento.addEventListener("click", function () {
   operacionSelec = "Complemento";
   spanOperacion.innerText = operacionSelec + "(′)";
 
-  if(conjuntosOperar.length > 0){
+  if (conjuntosOperar.length > 0) {
     document.getElementById("btnAgregarConjunto").disabled = true;
-  } else{
+  } else {
     document.getElementById("btnAgregarConjunto").disabled = false;
   }
-  
+
 });
 
-function actualizarBtn(lista,iD, limite) {
+function actualizarBtn(lista, iD, limite) {
   if (lista.length === 2) {
     document.getElementById(iD).disabled = false;
   } else {
@@ -373,42 +397,80 @@ btnOperar.addEventListener("click", function () {
   let idxNom1 = nombresConjuntos.indexOf(conjuntosOperar[0]);
   let idxNom2 = nombresConjuntos.indexOf(conjuntosOperar[1]);
   let res = [];
+
   switch (operacionSelec) {
     case "Union":
       res = union(conjuntos[idxNom1], conjuntos[idxNom2]);
-      document.getElementById("resultado").innerText = "Conjunto " + conjuntosOperar[0] + " union con conjunto "+ conjuntosOperar[1]+ ": " + res;
+      document.getElementById("resultado").innerText = "Conjunto " + conjuntosOperar[0] + " union con conjunto " + conjuntosOperar[1] + ": " + res;
       break;
 
     case "Diferencia":
       res = diferencia(conjuntos[idxNom1], conjuntos[idxNom2]);
-      document.getElementById("resultado").innerText = "Diferencia de: "+ conjuntosOperar[0] + " con el conjunto: "+ conjuntosOperar[1]+ ": " + res;
+      document.getElementById("resultado").innerText = "Diferencia de: " + conjuntosOperar[0] + " con el conjunto: " + conjuntosOperar[1] + ": " + res;
       break;
 
     case "DiferenciaSimetrica":
       res = diferenciaSimetrica(conjuntos[idxNom1], conjuntos[idxNom2]);
-      document.getElementById("resultado").innerText = "Diferencia simetrica de ambos conjuntos: " +  res;
+      document.getElementById("resultado").innerText = "Diferencia simetrica de ambos conjuntos: " + res;
       break;
 
     case "Intersección":
       res = interseccion(conjuntos[idxNom1], conjuntos[idxNom2]);
-      document.getElementById("resultado").innerText ="Intersección de " + conjuntosOperar[0] + " con " + conjuntosOperar[1] + ": " + res;
+      document.getElementById("resultado").innerText = "Intersección de " + conjuntosOperar[0] + " con " + conjuntosOperar[1] + ": " + res;
       break;
 
     case "Complemento":
       res = conjuntoComplemento(conjuntos[idxNom1], conjuntos[idxNom2]);
       document.getElementById("resultado").innerHTML = `conjunto ${conjuntosOperar[0]}′: ${res[0]}<br>conjunto ${conjuntosOperar[1]}′: ${res[1]}`;
       break;
+
+    case "ProductoCartesiano":
+      
+      res = productoCartesiano(conjuntos[idxNom1], conjuntos[idxNom2]);
+      document.getElementById("resultado").innerText = res;
+      
+      break;
+
+
   }
 });
 
 //funciones de operaciones
 function union(conjuntoA, conjuntoB) {
+
   let resultado = [...conjuntoA];  //Copia solo los elementos de la lista
   for (let i = 0; i < conjuntoB.length; i++) {
     if (!resultado.includes(conjuntoB[i])) resultado.push(conjuntoB[i]);
   }
+  
+  return resultado;
+
+}
+
+//------------------------------------PRODUCTO CRUZ----------------------------------------------
+
+function productoCartesiano(conjuntoA, conjuntoB) {
+  let resultado = [];
+  let rst = [];
+  // Primer bucle recorre conjuntoA
+  for (let i = 0; i < conjuntoA.length; i++) {
+    // Segundo bucle recorre conjuntoB
+    for (let j = 0; j < conjuntoB.length; j++) {
+      let valor = conjuntoA[i] + "," + conjuntoB[j]; // Concatenamos los elementos
+      rst.push(valor); // Añadimos al array 'resultado'
+    }
+  }
+  
+  for (let k = 0; k < rst.length; k++){
+    resultado.push(" {" + rst[k] + "}");
+  }
+  
+  // Retornamos el array resultado
   return resultado;
 }
+
+
+//----------------------------------------------------------------------------------
 
 //Elementos que estan en A que no estan en B
 function diferencia(conjuntoA, conjuntoB) {
@@ -458,10 +520,10 @@ function conjuntoComplemento(conjuntoA, conjuntoB) {
 const btnRegresar1 = document.getElementById("btnRegresar1");
 const btnRegresar2 = document.getElementById("btnRegresar2");
 
-btnRegresar1.addEventListener("click", function(){
-  ocultar("asignarElementos","creacionConjuntos");
+btnRegresar1.addEventListener("click", function () {
+  ocultar("asignarElementos", "creacionConjuntos");
 });
 
-btnRegresar2.addEventListener("click", function(){
+btnRegresar2.addEventListener("click", function () {
   ocultar("realizarOperaciones", "asignarElementos");
 })
